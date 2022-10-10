@@ -6,7 +6,7 @@ import Appointment from "./Appointment";
 
 
 
-const appointments = {
+/* const appointments = {
   "1": {
     id: 1,
     time: "12pm",
@@ -44,7 +44,7 @@ const appointments = {
     time: "4pm",
   }
 };
-
+ */
 
 
 export default function Application(props) {
@@ -53,10 +53,11 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
-    /* appointments: {} */
+    appointments: {}
   });
 
-  
+  const dailyAppointments = [];
+
   const setDay = day => setState({ ...state, day });
   const setDays = (days) => setState(prev => ({ ...prev, days }));
   
@@ -67,7 +68,7 @@ export default function Application(props) {
   
 
 
-  const appointmentList = Object.values(appointments).map(
+  const appointmentList = dailyAppointments.map(
     appointment => {
       return (
         <Appointment
