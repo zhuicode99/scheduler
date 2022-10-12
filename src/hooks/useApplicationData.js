@@ -12,7 +12,7 @@ export default function useApplicationData() {
   });
   
   const setDay = day => setState({ ...state, day });
-  
+
   useEffect(()=>{
     Promise.all([
       axios.get("http://localhost:8001/api/days"),
@@ -27,8 +27,33 @@ export default function useApplicationData() {
       })
     },[])
   
+    function spotsRemaining(state, id, spot) {
+      const day = state.days.find((day) => day.appointments.includes(id));
+      const newDay = { ...day, spots: day.spots + spot };
+      const newDays = state.days.map(day => day.id === newDay.id ? newDay : day);
+    
+      return newDays;
+    };
    
+/*     const spotsRemaining = function(state, appointments) {
+      const dayObj = state.days.find(d => d.name === state.day)
+      let spots = 0;
+      for (const id of dayObj.appointments){
+        const appointment = appointments[id];
+        if (!appointment.interview){
+          spots++;
+        }
+      }
+      const day = {...dayObj, spots};
+      const days = state.days.map(d => d.name === state.day ? day : d);
+
+      return days;
+    } */
+
+
       function bookInterview(id, interview) {
+        const days = spotsRemaining(state, id, state.appointments[id].interview ? 0 : -1);
+
         const appointment = {
           ...state.appointments[id],
           interview: {...interview}
@@ -41,13 +66,16 @@ export default function useApplicationData() {
   
         return axios.put(`/api/appointments/${id}`, appointment)
         .then(res => {
-          setState({...state, appointments});
+          setState({...state, days, appointments});
         })
         .catch(err => console.log(err))
       }
 
       //delete appointment
       function cancelInterview(id) {
+
+        const days = spotsRemaining(state, id, 1);
+
         const appointment = {
           ...state.appointments[id],
           interview: null
@@ -60,11 +88,11 @@ export default function useApplicationData() {
   
         return axios.delete(`/api/appointments/${id}`)
         .then(res => {
-          setState({...state, appointments});
+          setState({...state, days, appointments});
         })
   
       }
 
      
-      return { state, setDay, bookInterview, cancelInterview };
+      return { state, setDay, bookInterview, cancelInterview, spotsRemaining };
   }
