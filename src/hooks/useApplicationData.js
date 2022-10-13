@@ -15,9 +15,9 @@ export default function useApplicationData() {
 
   useEffect(()=>{
     Promise.all([
-      axios.get("http://localhost:8001/api/days"),
-      axios.get("http://localhost:8001/api/appointments"),
-      axios.get("http://localhost:8001/api/interviewers")
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers")
     ]).then((all)=>{
       setState(prev => ({
         ...prev, 
@@ -26,7 +26,9 @@ export default function useApplicationData() {
         interviewers:all[2].data }));
       })
     },[])
-  
+ 
+
+
     function spotsRemaining(state, id, spot) {
       const day = state.days.find((day) => day.appointments.includes(id));
       const newDay = { ...day, spots: day.spots + spot };
