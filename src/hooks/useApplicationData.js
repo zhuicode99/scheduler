@@ -70,8 +70,8 @@ export default function useApplicationData() {
         .then(res => {
           setState({...state, days, appointments});
         })
-        .catch(err => console.log(err))
-      }
+       /* .catch(err => console.log(err))  */
+      } 
 
       //delete appointment
       function cancelInterview(id) {

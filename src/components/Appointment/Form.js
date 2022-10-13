@@ -4,7 +4,7 @@ import Button from "components/Button";
 
 
 export default function Form(props) {
-  const [student, setStudent] = useState(props.student || "");
+  const [student, setStudent] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState('');
 
@@ -46,9 +46,9 @@ export default function Form(props) {
             type="text"
             placeholder="Enter Student Name"
             value={student}
-                onChange={(event) => {
-                  setStudent(event.target.value);
-                }}
+            onChange={(event) => {
+              setStudent(event.target.value);
+            }}
           />
           <section className="appointment__errorHandle">{error}</section>
         </form>
