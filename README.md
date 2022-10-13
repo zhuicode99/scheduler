@@ -38,5 +38,5 @@ react-scripts: 3.4.4
 react-test-renderer: ^16.14.0
 ```
 
-!["Create_appointment"]()
-!["Cancel_appointment"]()
+!["Create_appointment"](https://raw.githubusercontent.com/zhuicode99/scheduler/master/docs/create_appointment.png)
+!["Cancel_appointment"](https://raw.githubusercontent.com/zhuicode99/scheduler/master/docs/cancel_appointment.png)
